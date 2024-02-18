@@ -14,4 +14,6 @@ Las funciones son las siguientes:
 4. crossover
 5. mutate
 6. roulette_wheel_selection
-7. evolutionary_algorithm
+7. Elite_selection
+8. tournament_selection
+9. evolutionary_algorithm
