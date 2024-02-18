@@ -71,4 +71,19 @@ def elite_selection(population):
                 aux = fitness(element)
     return population[index]
 
+
+# Function to determine parents via tournament
+def tournament_selection(population):
+    best = elite_selection(population)
+    index = 0
+    aux = 0
+    for i, element in enumerate(population):
+        if is_prime(element):
+            if fitness(element) > aux
+                index = i
+                aux = fitness(element)
+    worst = population[index]
+    return best, worst
+
+
 # Evolutionary Algorithm
