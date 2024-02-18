@@ -21,7 +21,3 @@
 # Function to select parents via elite specimens
 
 # Evolutionary Algorithm
-
-#Test
-
-# Prueba
