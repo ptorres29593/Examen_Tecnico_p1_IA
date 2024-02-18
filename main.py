@@ -79,7 +79,7 @@ def tournament_selection(population):
     aux = 0
     for i, element in enumerate(population):
         if is_prime(element):
-            if fitness(element) > aux
+            if fitness(element) > aux:
                 index = i
                 aux = fitness(element)
     worst = population[index]
