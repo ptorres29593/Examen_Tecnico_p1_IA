@@ -5,17 +5,15 @@ import math
 import random
 
 # Here we declare variables
-objective = 500000
+objective = 200000
 
 
 # Here we start to write code for the functions
 
 # Function to check if a number is prime or not
 def is_prime(num):
-    if num is None:
-        return False
     if num % 2 == 0:
-        return False
+        return True
     upper_limit = int(math.sqrt(num) + 1)
     for i in range(3, upper_limit, 2):
         if num % i == 0:
@@ -25,12 +23,10 @@ def is_prime(num):
 
 # Function to calculate fitness
 def fitness(num):
-    if num is None:
-        return
     if is_prime(num):
         return abs(num - objective)
     else:
-        return abs(num - objective) + 1000
+        return abs(num - objective) + 100000000
 
 
 # Function to generate a random number
@@ -46,7 +42,7 @@ def crossover(parent1, parent2):
 # Function to mutate numbers
 def mutate(num, mutation_rate):
     if random.random() < mutation_rate:
-        return random.randint(num - 1000, num + 1000)
+        return abs(random.randint(num - 100000, num + 100000))
     return num
 
 
@@ -96,30 +92,39 @@ def tournament_selection(population, fitness_values):
 
 
 # Evolutionary Algorithm
-def evolutionary_algorithm(population_size, mutation_rate, max_generations):
+def evolutionary_algorithm(population_size, mutation_rate, max_generations, min_fitness):
     population = [generate_random_number() for _ in range(population_size)]
     generation_number = 1
 
     for generation in range(max_generations):
         fitness_values = [fitness(num) for num in population]
-        if min(fitness_values) == 0:
-            index = fitness_values.index(0)
+        if min(fitness_values) < min_fitness:
+            index = fitness_values.index(min(fitness_values))
+            print("The best number:", population[index])
+            print("Fitness value:", fitness_values[index])
+            print("Number of generations:", generation_number)
             return population, population[index], generation_number
         new_population = []
         elite = elite_selection(population, fitness_values)
         new_population.append(elite)
-        parent1, parent2 = tournament_selection(population, fitness_values)
-        child1 = crossover(parent1, parent2)
-        new_population.append(mutate(child1, mutation_rate))
-        while len(new_population) < population_size:
+        while len(new_population) < round(population_size/3):
+            parent1, parent2 = tournament_selection(population, fitness_values)
+            child1 = crossover(parent1, parent2)
+            new_population.append(mutate(child1, mutation_rate))
+        while len(new_population) < round((2/3)*population_size):
             parent3, parent4 = roulette_wheel_selection(population, fitness_values)
             child2 = crossover(parent3, parent4)
             new_population.append(mutate(child2, mutation_rate))
+        while len(new_population) < population_size:
+            new_population.append(generate_random_number())
         population = new_population
         generation_number += 1
     index = fitness_values.index(min(fitness_values))
+    print("The best number:", population[index])
+    print("Fitness value:", fitness_values[index])
+    print("Number of generations:", generation_number)
     return population, population[index], generation_number
 
-
-print(evolutionary_algorithm(10, 0.3, 100))
+print("Objective:", objective)
+evolutionary_algorithm(100, 0.3, 1000, 20)
 
