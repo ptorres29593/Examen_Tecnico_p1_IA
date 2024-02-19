@@ -43,6 +43,7 @@ def crossover(parent1, parent2):
 def mutate(num, mutation_rate):
     if random.random() < mutation_rate:
         return random.randint(num - 1000, num + 1000)
+    return num
 
 
 # Function to select parents via roulette
