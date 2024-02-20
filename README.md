@@ -14,4 +14,9 @@ Las funciones son las siguientes:
 4. crossover
 5. mutate
 6. roulette_wheel_selection
-7. evolutionary_algorithm
+7. Elite_selection
+8. tournament_selection
+9. evolutionary_algorithm
+
+## Soluciones
+En este repositorio se intentaron crear diversas soluciones para ver cual era la más optima, al final la solución se va a dejar en la branch que está por defecto (master) pero cada versión se dejo en una branch con el nombre del integrante que la diseño.
